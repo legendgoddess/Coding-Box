@@ -1,3 +1,5 @@
-$\tt legendgod$ 存放代码的一个仓库
+<h3><center>Legendgod</center></h3>
+
+ 存放代码的一个仓库
 
 
