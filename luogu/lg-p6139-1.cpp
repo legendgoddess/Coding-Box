@@ -34,8 +34,18 @@ char s[maxn];
 int fa[maxn], ln[maxn], ch[maxn][26];
 int tot(1);
 int Insert(int c,int las) {
-    if(ch[las][c] && ln[las] + 1 == ln[ch[las][c]]) return ch[las][c];
-    int p = las, np = ++ tot, nq, fl(0);
+    if(ch[las][c]) {
+        int p = las, q = ch[p][c];
+        if(ln[p] + 1 == ln[q]) return q;
+        else {
+            int nq = ++ tot; ln[nq] = ln[p] + 1;
+            fa[nq] = fa[q], fa[q] = nq;
+            memcpy(ch[nq], ch[q], sizeof(ch[q]));
+            for(; p && ch[p][c] == q; p = fa[p]) ch[p][c] = nq;
+            return nq;
+        }
+    }
+    int p = las, np = ++ tot;
     ln[np] = ln[p] + 1;
     for(; p && !ch[p][c]; p = fa[p]) ch[p][c] = np;
     if(!p) fa[np] = 1;
@@ -43,14 +53,13 @@ int Insert(int c,int las) {
         int q = ch[p][c];
         if(ln[p] + 1 == ln[q]) fa[np] = q;
         else {
-            nq = ++ tot; ln[nq] = ln[p] + 1;
-            if(ln[p] + 1 == ln[np]) fl = 1;
+            int nq = ++ tot; ln[nq] = ln[p] + 1;
             fa[nq] = fa[q], fa[q] = fa[np] = nq;
             memcpy(ch[nq], ch[q], sizeof(ch[q]));
             for(; p && ch[p][c] == q; p = fa[p]) ch[p][c] = nq;
         }
     }
-    return fl ? nq : np;
+    return np;
 }
 
 signed main() {
