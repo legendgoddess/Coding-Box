@@ -1,4 +1,3 @@
-```cpp
 #include <bits/stdc++.h>
 using namespace std;
 namespace Legendgod {
@@ -103,5 +102,3 @@ signed main() {
 
 signed main() { return Legendgod::main(), 0; }//
 
-
-```
